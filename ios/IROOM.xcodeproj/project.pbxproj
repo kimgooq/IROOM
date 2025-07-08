@@ -12,6 +12,7 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		879F2D62B8B424FE6349D43F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		C084AA902E1C081600999C29 /* RCTARKitCameraView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */; };
 		C094D4972E1BD6C2000CCDFD /* RCTNativeLidarModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = C094D4962E1BD6C2000CCDFD /* RCTNativeLidarModule.mm */; };
 		C094D4992E1BDA5B000CCDFD /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094D4982E1BDA5B000CCDFD /* ARKit.framework */; };
 /* End PBXBuildFile section */
@@ -26,6 +27,8 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-IROOM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IROOM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = IROOM/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = IROOM/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C084AA8D2E1C081500999C29 /* RCTARKitCameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTARKitCameraView.h; sourceTree = "<group>"; };
+		C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTARKitCameraView.mm; sourceTree = "<group>"; };
 		C094D4952E1BD6C2000CCDFD /* RCTNativeLidarModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTNativeLidarModule.h; sourceTree = "<group>"; };
 		C094D4962E1BD6C2000CCDFD /* RCTNativeLidarModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTNativeLidarModule.mm; sourceTree = "<group>"; };
 		C094D4982E1BDA5B000CCDFD /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
@@ -77,6 +80,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C084AA8F2E1C081500999C29 /* ARKitCameraView */,
 				C094D4942E1BD601000CCDFD /* NativeLidarModule */,
 				13B07FAE1A68108700A75B9A /* IROOM */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -104,6 +108,15 @@
 				5709B34CF0A7D63546082F79 /* Pods-IROOM.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C084AA8F2E1C081500999C29 /* ARKitCameraView */ = {
+			isa = PBXGroup;
+			children = (
+				C084AA8D2E1C081500999C29 /* RCTARKitCameraView.h */,
+				C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */,
+			);
+			path = ARKitCameraView;
 			sourceTree = "<group>";
 		};
 		C094D4942E1BD601000CCDFD /* NativeLidarModule */ = {
@@ -265,6 +278,7 @@
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
 				C094D4972E1BD6C2000CCDFD /* RCTNativeLidarModule.mm in Sources */,
+				C084AA902E1C081600999C29 /* RCTARKitCameraView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

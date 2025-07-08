@@ -12,7 +12,9 @@
   "dependencies": {
     "@react-native/new-app-screen": "0.80.1",
     "react": "19.1.0",
-    "react-native": "0.80.1"
+    "react-native": "0.80.1",
+    "react-native-vision-camera": "^4.7.0",
+    "react-native-webview": "^13.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -39,8 +41,8 @@
     "node": ">=18"
   },
   "codegenConfig": {
-    "name": "NativeLidarModuleSpec",
-    "type": "modules",
+    "name": "AppSpec",
+    "type": "all",
     "jsSrcsDir": "specs",
     "android": {
       "javaPackageName": "com.nativelidarmodule"
@@ -48,6 +50,9 @@
     "ios": {
       "modulesProvider": {
         "NativeLidarModule": "RCTNativeLidarModule"
+      },
+      "componentProvider": {
+        "ARKitCameraView": "RCTARKitCameraView"
       }
     }
   }

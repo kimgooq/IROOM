@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <NativeLidarModuleSpec/NativeLidarModuleSpec.h>
+#import <AppSpec/AppSpec.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
