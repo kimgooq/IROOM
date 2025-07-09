@@ -1,22 +1,11 @@
-//
-//  RCTNativeLidarModule.m
-//  IROOM
-//
-//  Created by jonghoon on 7/7/25.
-//
-
 #import "RCTNativeLidarModule.h"
+#import "../ARKitCameraView/ARSessionManager.h"
 #import <ARKit/ARKit.h>
 
-//static NSString *const RCTNativeLidarModuleKey = @"lidar-module";
-
 @interface RCTNativeLidarModule()
-//@property (strong, nonatomic) NSUserDefaults *lidarModule;
 @end
 
-@implementation RCTNativeLidarModule {
-  ARSession *_session;
-}
+@implementation RCTNativeLidarModule
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params {
   return std::make_shared<facebook::react::NativeLidarModuleSpecJSI>(params);
@@ -24,26 +13,20 @@
 
 - (instancetype)init {
   if (self = [super init]) {
-    _session = [ARSession new];
-    ARWorldTrackingConfiguration *config = [ARWorldTrackingConfiguration new];
-
-    if ([ARWorldTrackingConfiguration supportsFrameSemantics:ARFrameSemanticSceneDepth]) {
-      config.frameSemantics = ARFrameSemanticSceneDepth;
-    }
-
-    [_session runWithConfiguration:config];
+    [[ARSessionManager sharedInstance] startSession];
+    NSLog(@"[NativeLidarModule] Using shared ARSession");
   }
   return self;
 }
 
 - (void)getPointCloud:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-  ARFrame *frame = _session.currentFrame;
+  ARSession *session = [[ARSessionManager sharedInstance] getSession];
+  ARFrame *frame = session.currentFrame;
   if (!frame || !frame.sceneDepth) {
     resolve(@[]);
     return;
   }
 
-  // 간단한 예: depth map에서 xyz 포인트 1개 추출
   ARDepthData *depth = frame.sceneDepth;
   CVPixelBufferRef depthMap = depth.depthMap;
 
@@ -53,10 +36,10 @@
   float *data = (float *)CVPixelBufferGetBaseAddress(depthMap);
 
   NSMutableArray *result = [NSMutableArray array];
-  for (int i = 0; i < width * height; i += 1000) { // downsample for demo
+  for (int i = 0; i < width * height; i += 1000) {
     float z = data[i];
-    [result addObject:@(0)]; // dummy x
-    [result addObject:@(0)]; // dummy y
+    [result addObject:@(0)];
+    [result addObject:@(0)];
     [result addObject:@(z)];
   }
 

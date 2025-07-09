@@ -1,19 +1,276 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./script.js"></script>
-    <style>
-      body {
-        background: transparent;
-        margin: 0;
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>AR Three.js Overlay</title>
+
+    <script src="./three.min.js"></script>
+    <script>
+      console.log('THREE object available:', typeof THREE !== 'undefined');
+      if (typeof THREE !== 'undefined') {
+        console.log(
+          'THREE.WebGLRenderer available:',
+          typeof THREE.WebGLRenderer !== 'undefined',
+        );
+        console.log(
+          'THREE.Scene available:',
+          typeof THREE.Scene !== 'undefined',
+        );
+        console.log(
+          'THREE.PerspectiveCamera available:',
+          typeof THREE.PerspectiveCamera !== 'undefined',
+        );
       }
-      h1 {
+    </script>
+    <script src="./script.js"></script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent !important;
+        background-color: transparent !important;
+        overflow: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      #three-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .status-overlay {
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.75);
+        border-radius: 12px;
+        padding: 16px;
         color: white;
+        min-width: 280px;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        pointer-events: none;
+        z-index: 1000;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+        line-height: 1.4;
+        transition: all 0.3s ease;
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .status-overlay.hidden {
+        opacity: 0;
+        transform: translateX(-100%);
+        pointer-events: none;
+      }
+
+      .status-item {
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      .status-item:hover {
+        transform: translateX(2px);
+      }
+
+      .status-label {
+        font-weight: 600;
+        min-width: 130px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .status-value {
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas,
+          monospace;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2px 6px;
+        border-radius: 4px;
+        min-width: 60px;
+        text-align: center;
+      }
+
+      .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 10px;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .status-active {
+        background: #4caf50;
+        box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+        border-color: #4caf50;
+      }
+
+      .status-inactive {
+        background: #f44336;
+        box-shadow: 0 0 12px rgba(244, 67, 54, 0.6);
+        border-color: #f44336;
+      }
+
+      .status-warning {
+        background: #ff9800;
+        box-shadow: 0 0 12px rgba(255, 152, 0, 0.6);
+        border-color: #ff9800;
+      }
+
+      .title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        text-align: center;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 12px;
+      }
+
+      .performance-item {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 6px 0;
+      }
+
+      .error-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(244, 67, 54, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 600;
+        z-index: 2000;
+        display: none;
+      }
+
+      .loading-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid #4caf50;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        z-index: 1500;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .status-overlay {
+          left: 10px;
+          right: 10px;
+          min-width: unset;
+          font-size: 12px;
+        }
+
+        .status-label {
+          min-width: 100px;
+        }
+
+        .status-value {
+          font-size: 11px;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>WebView Overlay</h1>
+    <div id="loading-spinner" class="loading-spinner"></div>
+
+    <div id="three-container"></div>
+
+    <div class="status-overlay">
+      <div class="title">Debug Panel</div>
+
+      <div class="status-item">
+        <div style="display: flex; align-items: center">
+          <div
+            id="camera-indicator"
+            class="status-indicator status-inactive"
+          ></div>
+          <span class="status-label">카메라:</span>
+        </div>
+        <span id="camera-status" class="status-value">대기중</span>
+      </div>
+
+      <div class="status-item">
+        <div style="display: flex; align-items: center">
+          <div
+            id="lidar-indicator"
+            class="status-indicator status-inactive"
+          ></div>
+          <span class="status-label">Lidar:</span>
+        </div>
+        <span id="lidar-status" class="status-value">대기중</span>
+      </div>
+
+      <div class="status-item">
+        <span class="status-label">포인트 수:</span>
+        <span id="point-count" class="status-value">0</span>
+      </div>
+
+      <div class="status-item">
+        <span class="status-label">Three.js:</span>
+        <span id="threejs-status" class="status-value">로딩중</span>
+      </div>
+
+      <div class="status-item">
+        <span class="status-label">FPS:</span>
+        <span id="fps-counter" class="status-value">--</span>
+      </div>
+
+      <div class="status-item performance-item">
+        <span class="status-label">메모리:</span>
+        <span id="memory-usage" class="status-value">--</span>
+      </div>
+
+      <div class="status-item performance-item">
+        <span class="status-label">업데이트:</span>
+        <span id="last-update" class="status-value">--</span>
+      </div>
+    </div>
+
+    <div id="error-message" class="error-message">
+      <div id="error-text"></div>
+    </div>
   </body>
 </html>

@@ -1,4 +1,5 @@
 #import "RCTARKitCameraView.h"
+#import "ARSessionManager.h"
 #import <ARKit/ARKit.h>
 #import <Metal/Metal.h>
 #import <QuartzCore/CAMetalLayer.h>
@@ -11,7 +12,6 @@
 @end
 
 @implementation RCTARKitCameraView {
-  ARSession *_session;
   CAMetalLayer *_metalLayer;
   id<MTLDevice> _device;
   id<MTLCommandQueue> _commandQueue;
@@ -28,24 +28,14 @@
         _metalLayer = (CAMetalLayer *)self.layer;
         _metalLayer.device = _device;
         _metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
-        _metalLayer.framebufferOnly = NO; // <- 중요!
-        NSLog(@"[ARKitCameraView] Metal device: %@", _device);
+        _metalLayer.framebufferOnly = NO;
 
         _ciContext = [CIContext contextWithMTLDevice:_device];
         _commandQueue = [_device newCommandQueue];
 
-        _session = [ARSession new];
-        _session.delegate = self;
-        if ([ARWorldTrackingConfiguration isSupported]) {
-            ARWorldTrackingConfiguration *config = [ARWorldTrackingConfiguration new];
-            if ([ARWorldTrackingConfiguration supportsFrameSemantics:ARFrameSemanticSceneDepth]) {
-                config.frameSemantics = ARFrameSemanticSceneDepth;
-            }
-            [_session runWithConfiguration:config];
-            NSLog(@"[ARKitCameraView] ARSession started");
-        } else {
-            NSLog(@"[ARKitCameraView] ARWorldTrackingConfiguration not supported");
-        }
+        ARSession *session = [[ARSessionManager sharedInstance] getSession];
+        session.delegate = self;
+        [[ARSessionManager sharedInstance] startSession];
     }
     return self;
 }
@@ -55,20 +45,13 @@
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize size = self.bounds.size;
     _metalLayer.drawableSize = CGSizeMake(size.width * scale, size.height * scale);
-    NSLog(@"[ARKitCameraView] layoutSubviews: drawableSize = %.0fx%.0f (scale: %.1f)", _metalLayer.drawableSize.width, _metalLayer.drawableSize.height, scale);
 }
 
 - (void)session:(ARSession *)session didUpdateFrame:(ARFrame *)frame {
     CVPixelBufferRef pixelBuffer = frame.capturedImage;
-    NSLog(@"[ARKitCameraView] pixelBuffer size: %zu x %zu", CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
-
     CIImage *ciImageRaw = [CIImage imageWithCVPixelBuffer:pixelBuffer];
-    NSLog(@"[ARKitCameraView] ciImageRaw extent: %.0fx%.0f %.0fx%.0f", ciImageRaw.extent.origin.x, ciImageRaw.extent.origin.y, ciImageRaw.extent.size.width, ciImageRaw.extent.size.height);
-
     CIImage *ciImage = [ciImageRaw imageByApplyingOrientation:kCGImagePropertyOrientationRight];
-    NSLog(@"[ARKitCameraView] ciImageOriented extent: %.0fx%.0f %.0fx%.0f", ciImage.extent.origin.x, ciImage.extent.origin.y, ciImage.extent.size.width, ciImage.extent.size.height);
 
-    // Aspect Fit transform 적용
     CGFloat imageWidth = ciImage.extent.size.width;
     CGFloat imageHeight = ciImage.extent.size.height;
     CGFloat destWidth = _metalLayer.drawableSize.width;
@@ -84,17 +67,14 @@
     CIImage *fittedImage = [ciImage imageByApplyingTransform:transform];
 
     CGRect targetRect = CGRectMake(0, 0, destWidth, destHeight);
-    NSLog(@"[ARKitCameraView] drawableSize: %.0fx%.0f, targetRect: %.0fx%.0f %.0fx%.0f", destWidth, destHeight, targetRect.origin.x, targetRect.origin.y, targetRect.size.width, targetRect.size.height);
 
     id<CAMetalDrawable> drawable = [_metalLayer nextDrawable];
     if (!drawable) {
-        NSLog(@"[ARKitCameraView] No drawable");
         return;
     }
 
     id<MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
     if (!commandBuffer) {
-        NSLog(@"[ARKitCameraView] No commandBuffer");
         return;
     }
 
@@ -106,7 +86,6 @@
 
     [commandBuffer presentDrawable:drawable];
     [commandBuffer commit];
-    NSLog(@"[ARKitCameraView] Frame rendered");
 }
 
 + (facebook::react::ComponentDescriptorProvider)componentDescriptorProvider

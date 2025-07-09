@@ -13,8 +13,14 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		879F2D62B8B424FE6349D43F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		C084AA902E1C081600999C29 /* RCTARKitCameraView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */; };
+		C087BFD62E1E9B6A007D5217 /* overlay.html in Resources */ = {isa = PBXBuildFile; fileRef = C087BFD12E1E9B6A007D5217 /* overlay.html */; };
+		C087BFD72E1E9B6A007D5217 /* three.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C087BFD32E1E9B6A007D5217 /* three.min.js */; };
+		C087BFD82E1E9B6A007D5217 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = C087BFD22E1E9B6A007D5217 /* script.js */; };
 		C094D4972E1BD6C2000CCDFD /* RCTNativeLidarModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = C094D4962E1BD6C2000CCDFD /* RCTNativeLidarModule.mm */; };
 		C094D4992E1BDA5B000CCDFD /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094D4982E1BDA5B000CCDFD /* ARKit.framework */; };
+		C098D89B2E1E7DC100E3C43B /* ARSessionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = C098D89A2E1E7DC100E3C43B /* ARSessionManager.mm */; };
+		C0C6DEB72E1E8CA3009AE6E0 /* RCTCustomWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0C6DEB52E1E8CA3009AE6E0 /* RCTCustomWebView.mm */; };
+		C0C6DEB92E1E8D8D009AE6E0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6DEB82E1E8D8D009AE6E0 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +35,17 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = IROOM/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C084AA8D2E1C081500999C29 /* RCTARKitCameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTARKitCameraView.h; sourceTree = "<group>"; };
 		C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTARKitCameraView.mm; sourceTree = "<group>"; };
+		C087BFD12E1E9B6A007D5217 /* overlay.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = overlay.html; sourceTree = "<group>"; };
+		C087BFD22E1E9B6A007D5217 /* script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
+		C087BFD32E1E9B6A007D5217 /* three.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = three.min.js; sourceTree = "<group>"; };
 		C094D4952E1BD6C2000CCDFD /* RCTNativeLidarModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTNativeLidarModule.h; sourceTree = "<group>"; };
 		C094D4962E1BD6C2000CCDFD /* RCTNativeLidarModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTNativeLidarModule.mm; sourceTree = "<group>"; };
 		C094D4982E1BDA5B000CCDFD /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		C098D8992E1E7DC100E3C43B /* ARSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARSessionManager.h; sourceTree = "<group>"; };
+		C098D89A2E1E7DC100E3C43B /* ARSessionManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ARSessionManager.mm; sourceTree = "<group>"; };
+		C0C6DEB42E1E8CA3009AE6E0 /* RCTCustomWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTCustomWebView.h; sourceTree = "<group>"; };
+		C0C6DEB52E1E8CA3009AE6E0 /* RCTCustomWebView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTCustomWebView.mm; sourceTree = "<group>"; };
+		C0C6DEB82E1E8D8D009AE6E0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -40,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0C6DEB92E1E8D8D009AE6E0 /* WebKit.framework in Frameworks */,
 				C094D4992E1BDA5B000CCDFD /* ARKit.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-IROOM.a in Frameworks */,
 			);
@@ -63,6 +78,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0C6DEB82E1E8D8D009AE6E0 /* WebKit.framework */,
 				C094D4982E1BDA5B000CCDFD /* ARKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-IROOM.a */,
@@ -80,6 +96,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C087BFD52E1E9B6A007D5217 /* assets */,
+				C0C6DEB62E1E8CA3009AE6E0 /* CustomWebView */,
 				C084AA8F2E1C081500999C29 /* ARKitCameraView */,
 				C094D4942E1BD601000CCDFD /* NativeLidarModule */,
 				13B07FAE1A68108700A75B9A /* IROOM */,
@@ -113,11 +131,32 @@
 		C084AA8F2E1C081500999C29 /* ARKitCameraView */ = {
 			isa = PBXGroup;
 			children = (
+				C098D8992E1E7DC100E3C43B /* ARSessionManager.h */,
+				C098D89A2E1E7DC100E3C43B /* ARSessionManager.mm */,
 				C084AA8D2E1C081500999C29 /* RCTARKitCameraView.h */,
 				C084AA8E2E1C081500999C29 /* RCTARKitCameraView.mm */,
 			);
 			path = ARKitCameraView;
 			sourceTree = "<group>";
+		};
+		C087BFD42E1E9B6A007D5217 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				C087BFD12E1E9B6A007D5217 /* overlay.html */,
+				C087BFD22E1E9B6A007D5217 /* script.js */,
+				C087BFD32E1E9B6A007D5217 /* three.min.js */,
+			);
+			path = web;
+			sourceTree = "<group>";
+		};
+		C087BFD52E1E9B6A007D5217 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				C087BFD42E1E9B6A007D5217 /* web */,
+			);
+			name = assets;
+			path = ../assets;
+			sourceTree = SOURCE_ROOT;
 		};
 		C094D4942E1BD601000CCDFD /* NativeLidarModule */ = {
 			isa = PBXGroup;
@@ -126,6 +165,15 @@
 				C094D4962E1BD6C2000CCDFD /* RCTNativeLidarModule.mm */,
 			);
 			path = NativeLidarModule;
+			sourceTree = "<group>";
+		};
+		C0C6DEB62E1E8CA3009AE6E0 /* CustomWebView */ = {
+			isa = PBXGroup;
+			children = (
+				C0C6DEB42E1E8CA3009AE6E0 /* RCTCustomWebView.h */,
+				C0C6DEB52E1E8CA3009AE6E0 /* RCTCustomWebView.mm */,
+			);
+			path = CustomWebView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +239,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				879F2D62B8B424FE6349D43F /* PrivacyInfo.xcprivacy in Resources */,
+				C087BFD62E1E9B6A007D5217 /* overlay.html in Resources */,
+				C087BFD72E1E9B6A007D5217 /* three.min.js in Resources */,
+				C087BFD82E1E9B6A007D5217 /* script.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,9 +272,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IROOM/Pods-IROOM-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IROOM/Pods-IROOM-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -260,9 +315,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IROOM/Pods-IROOM-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IROOM/Pods-IROOM-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -277,8 +336,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				C098D89B2E1E7DC100E3C43B /* ARSessionManager.mm in Sources */,
 				C094D4972E1BD6C2000CCDFD /* RCTNativeLidarModule.mm in Sources */,
 				C084AA902E1C081600999C29 /* RCTARKitCameraView.mm in Sources */,
+				C0C6DEB72E1E8CA3009AE6E0 /* RCTCustomWebView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,10 +471,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -482,10 +540,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
